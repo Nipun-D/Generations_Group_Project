@@ -1,0 +1,54 @@
+service: team-3
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    pythonBin: python3
+    slim: true
+    layer: true
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: eu-west-1
+  iam:
+    role: arn:aws:iam::064061412720:role/team-3-execution-role
+
+package:
+  individually: false
+  include:
+    - src/**
+  exclude:
+    - "*"
+    - "*/**"
+
+functions:
+  etl:
+    handler: src/etl/handler.handle
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+    vpc: # access lambda for configuration to access redshift
+      securityGroupIds:
+        - sg-0e8f1a26780e87b1d
+      subnetIds:
+        - subnet-0b9c52a62dd33086b
+    environment:
+      DB_CLUSTER: "final-project-infrastructure-redshiftcluster-ba1ic72cchku"
+      DB_HOST: "172.31.76.168"
+      DB_NAME: "team3"
+      DB_PORT: "5439"
+      DB_USER: "awsuser"
+    timeout: 300
+    events:
+      - s3:
+          bucket: team3testbucket
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .csv
+

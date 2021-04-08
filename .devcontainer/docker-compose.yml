@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  database-dev-env:
+    build: .
+    init: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ..:/workspace:cached
+      - ~/.aws:/home/vscode/.aws
+    command: /bin/sh -c "while sleep 1000; do :; done"

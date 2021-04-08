@@ -1,0 +1,28 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Group project for Team 3",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/generation-bir2/team-3-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/generation-bir2/team-3-project/issues"
+  },
+  "homepage": "https://github.com/generation-bir2/team-3-project#readme",
+  "dependencies": {
+    "aws-sso-credentials-getter": "^1.2.2",
+    "serverless": "^2.30.3",
+    "serverless-iam-roles-per-function": "^3.1.0",
+    "serverless-python-requirements": "^5.1.0"
+  }
+}
